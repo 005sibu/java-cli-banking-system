@@ -1,4 +1,3 @@
-
 package src;
 
 import java.util.Scanner;
@@ -29,7 +28,8 @@ public class Main {
             System.out.println("1. Deposit");
             System.out.println("2. Withdraw");
             System.out.println("3. Check Balance");
-            System.out.println("4. Exit");
+            System.out.println("4. View Transaction History");
+            System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
             choice = scanner.nextInt();
@@ -52,14 +52,18 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("Thank you for using Console Bank.");
+                    account.showTransactionHistory();
+                    break;
+                    
+                case 5:
+                    System.out.println("Thank you for using Console Bank");
                     break;
 
                 default:
                     System.out.println("Invalid option. Try again.");
             }
 
-        } while (choice != 4);
+        } while (choice != 5);
 
         scanner.close();
     }
