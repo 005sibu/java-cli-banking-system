@@ -3,6 +3,8 @@ package src;
 import java.util.ArrayList;
 
 
+
+
 /**
  *
  * @author Sibusiso Nahara
@@ -12,10 +14,16 @@ public class BankAccount {
     private String accountHolder;
     private double balance;
     private ArrayList<String> transactionHistory = new ArrayList<>();
+    private String pin;
     
-    public BankAccount(String accountHolder, double initialDeposit) {
+    public BankAccount(String accountHolder, double initialDeposit, String pin) {
         this.accountHolder = accountHolder;
         this.balance = initialDeposit;
+        this.pin = pin;
+    }
+    
+    public boolean validatePin(String enteredPin) {
+        return this.pin.equals(enteredPin);
     }
     
     public void deposit(double amount) {
@@ -50,11 +58,33 @@ public class BankAccount {
     }
     
     public void displayBalance() {
-        System.out.println("Current balance: R" + balance);
+        System.out.printf("Current balance: R%.2f%n", balance);
     }
 
     public String getAccountHolder() {
         return accountHolder;
     }
     
+    public void transfer(BankAccount targetAccount, double amount) {
+        
+        if (amount > 0 && amount <= balance) {
+            this.balance -= amount;
+            targetAccount.balance += amount;
+            
+            transactionHistory.add("Transferred R" + amount + " to " + targetAccount.getAccountHolder());
+            targetAccount.transactionHistory.add("Received R" + amount + " from " + this.getAccountHolder());
+            
+            System.out.println("Transfer successful.");
+        } else {
+            System.out.println("Invalid transfer amount.");
+        }
+    }
+    
+    public String toFileString() {
+        return accountHolder + "," + balance + "," + pin;
+    }
 }
+
+
+
+
